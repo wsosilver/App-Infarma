@@ -11,13 +11,28 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Dashboard</ion-title>
+      <ion-title class="tela" size="large">Dashboard</ion-title>
     </ion-toolbar>
   </ion-header>
-
-
-
-  <div id="container">
-      <canvas id="myChart" width="100" height="100"></canvas>
+  <div>
+      <canvas id="myChart" width="1200" height="800"></canvas>
   </div>
-</ion-content>
+
+    <div>
+      <ion-card>
+       
+        <ion-card-content>
+          <ion-list>
+            <ion-list-header>
+              <p>Ranking</p>
+            </ion-list-header>
+            <ion-item *ngFor="let item of vendedores| slice:0:5">
+              <ion-label>{{item.nomVend}}</ion-label>
+              <p slot="end" id="percentual" color="primary">{{item.percVend}} %</p>
+            </ion-item>
+    
+          </ion-list>   </ion-card-content>
+      </ion-card>
+
+     
+  </div>
