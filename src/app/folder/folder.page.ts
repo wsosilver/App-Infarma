@@ -2,7 +2,8 @@ import { ApiService } from './../service/api.service';
 import { Component, OnInit, ViewChild, DebugElement } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Chart } from 'chart.js';
-import { HttpClient } from '@angular/common/http'
+import { LoadingController } from '@ionic/angular';
+
 
 
 @Component({
@@ -23,10 +24,12 @@ export class FolderPage implements OnInit {
   media: any[] = [];
   value_total: any = '';
   quantidadeVenda: any[] = [];
+  isLoading = false;
+
 
   //Variaveis Vendedores
   vendedores: any[] = []
-  constructor(private activatedRoute: ActivatedRoute, private http: HttpClient, private api: ApiService) {
+  constructor(private activatedRoute: ActivatedRoute, private api: ApiService, private loadingController: LoadingController) {
   }
 
   ngOnInit() {
@@ -38,8 +41,9 @@ export class FolderPage implements OnInit {
   }
 
   topVendedores(){
+    this.vendedores = [];
     this.api.topVendedores().subscribe((data) =>{
-      debugger
+      
       for (let index = 0; index < data.length; index++) {
         
        let vendedor = {
@@ -55,9 +59,8 @@ export class FolderPage implements OnInit {
 
 
   buscarEmpresa(){
-    
+    this.present()
     this.api.Dashboard().subscribe((data) =>{
-      debugger
       for (let index = 0; index < data.length; index++) {
         this.empre.push(data[index]['Cod_Loja']);
         this.value.push(Number(data[index]['Val_VenBal']));
@@ -66,9 +69,11 @@ export class FolderPage implements OnInit {
         this.value_total = Number(this.value_total) + Number(this.value[index]); 
         this.dias.push(dia);
         this.media.push(this.value_total / this.dias.length)
+        
       }
+      this.dismiss()
     })
-
+    //this.chart();
   }
 
   chart() {
@@ -90,12 +95,31 @@ export class FolderPage implements OnInit {
         ]
       },
       options: {
-        title: {
-          display: true,
-        }
+       animation: {
+         duration: 5000,
+         easing: 'linear'
+       }
       }
     });
 }
-  
+
+async present() {
+  this.isLoading = true;
+  return await this.loadingController.create({
+    // duration: 5000,
+  }).then(a => {
+    a.present().then(() => {
+      console.log('presented');
+      if (!this.isLoading) {
+        a.dismiss().then(() => console.log('abort presenting'));
+      }
+    });
+  });
+}
+
+async dismiss() {
+  this.isLoading = false;
+  return await this.loadingController.dismiss().then(() => console.log('dismissed'));
+}
 
 }

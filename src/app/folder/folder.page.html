@@ -18,6 +18,11 @@
       <canvas id="myChart" width="1200" height="800"></canvas>
   </div>
 
+  <ion-fab horizontal="end" vertical="start" slot="fixed">
+    <ion-fab-button (click)="topVendedores();buscarEmpresa()" color="danger">
+      <ion-icon name="refresh"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
     <div>
       <ion-card>
        
@@ -34,5 +39,4 @@
           </ion-list>   </ion-card-content>
       </ion-card>
 
-     
   </div>

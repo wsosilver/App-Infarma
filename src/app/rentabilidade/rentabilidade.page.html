@@ -1,9 +1,52 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>rentabilidade</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Rentabilidade</ion-title>
   </ion-toolbar>
 </ion-header>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 
 <ion-content>
 
+  <div>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          Ranking de Rentabilidade
+        </ion-label>
+      </ion-list-header>
+    
+     
+      <ion-item>
+        <ion-label>Agrupamento</ion-label>
+        <ion-select [(ngModel)]="valueSelect" name="selectCode" multiple="false"
+        (ionChange)="teste()" required >
+          <ion-select-option *ngFor="let item of Aselect; let i= index" value='item.i'>{{item}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+    </ion-list>
+  </div>
+
+  <div>
+    <ion-card>
+     
+      <ion-card-content>
+        <ion-list>
+          <ion-list-header>
+            <p>Ranking</p>
+          </ion-list-header>
+          <ion-item *ngFor="let item of Arent ">
+            <ion-label>{{item.desGrp}}</ion-label>
+            <p slot="end" id="percentual" color="primary">{{item.Valor}} </p>
+          </ion-item>
+  
+        </ion-list>   </ion-card-content>
+    </ion-card>
+
+   
+</div>
 </ion-content>

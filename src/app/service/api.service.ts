@@ -14,13 +14,19 @@ export class ApiService {
   constructor(private http: HttpClient) { }
  
   public Dashboard() : any{
-    let api = 'http://192.168.0.106:3000/empre';
+    let api = 'http://192.168.0.105:3000/empre';
 
     return this.http.get(api);
  }
 
  public topVendedores() : any{
-  let api = 'http://192.168.0.106:3000/top_vendedores';
+  let api = 'http://192.168.0.105:3000/top_vendedores';
+
+  return this.http.get(api);
+}
+
+public rentabilidade() : any{
+  let api = 'http://192.168.0.105:3000/rentabilidade';
 
   return this.http.get(api);
 }
